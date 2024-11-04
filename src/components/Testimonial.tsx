@@ -43,6 +43,16 @@ const Testimonial = () => {
     speed: 3000,
     autoplaySpeed: 3000,
     cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
+        },
+      },
+    ],
   };
 
   return (
@@ -60,7 +70,7 @@ const Testimonial = () => {
       <Typography
         sx={{
           color: "#000",
-          fontSize: "50px",
+          fontSize: { xs: "28px", md: "50px" },
           fontWeight: "bolder",
           letterSpacing: "-1px",
           textAlign: "center",
@@ -75,12 +85,12 @@ const Testimonial = () => {
           <Box key={index} sx={{ position: "relative", my: 4 }}>
             <Box
               sx={{
-                width: 50,
-                height: 50,
+                width: { xs: 25, md: 50 },
+                height: { xs: 25, md: 50 },
                 backgroundColor: "#3734A9",
                 borderRadius: "50%",
                 position: "absolute",
-                top: -25,
+                top: { xs: -12, md: -25 },
                 left: 25,
                 zIndex: 1,
               }}

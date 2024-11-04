@@ -44,29 +44,42 @@ const links = [
 ];
 
 const contact = [
-  { icon: <MailOutline />, text: "shakir260@gmail.com" },
-  { icon: <PhoneInTalk />, text: "+92-300-848-8985" },
+  { icon: <MailOutline fontSize="small" />, text: "shakir260@gmail.com" },
+  { icon: <PhoneInTalk fontSize="small" />, text: "+92-300-848-8985" },
 ];
 
 const Footer = () => {
   return (
     <Container sx={{ mt: 10 }}>
       <Grid container spacing={2}>
-        <Grid size={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Typography
             sx={{
               fontSize: "21px",
               fontWeight: "bold",
               color: "#1B1C31",
               mb: 1,
+              textAlign: { xs: "center", md: "left" },
             }}
           >
             AR
           </Typography>
-          <Typography sx={{ fontSize: "16px", mr: 16, mb: 4 }}>
+          <Typography
+            sx={{
+              fontSize: "16px",
+              mr: { xs: 0, md: 16 },
+              mb: { xs: 1, md: 4 },
+              textAlign: { xs: "center", md: "left" },
+            }}
+          >
             Finance helps companies manage payments easily.
           </Typography>
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Stack
+            direction="row"
+            spacing={2}
+            alignItems="center"
+            justifyContent={{ xs: "center", md: "normal" }}
+          >
             {socials.map((social, index) => (
               <Box
                 key={index}
@@ -79,31 +92,40 @@ const Footer = () => {
           </Stack>
         </Grid>
         {links.map((link, index) => (
-          <Grid key={index} size={2}>
+          <Grid key={index} size={{ xs: 6, md: 2 }}>
             <Typography
               sx={{
-                fontSize: "21px",
+                fontSize: { xs: "16px", md: "21px" },
                 fontWeight: "bold",
                 color: "#1B1C31",
                 mb: 1,
+                textAlign: { xs: "center", md: "left" },
               }}
             >
               {link.title}
             </Typography>
             {link.links.map((item, index) => (
-              <Typography key={index} sx={{ fontSize: "16px", mb: 1 }}>
+              <Typography
+                key={index}
+                sx={{
+                  fontSize: { xs: "12px", md: "16px" },
+                  mb: 1,
+                  textAlign: { xs: "center", md: "left" },
+                }}
+              >
                 {item.name}
               </Typography>
             ))}
           </Grid>
         ))}
-        <Grid size={2}>
+        <Grid size={{ xs: 6, md: 2 }}>
           <Typography
             sx={{
-              fontSize: "21px",
+              fontSize: { xs: "16px", md: "21px" },
               fontWeight: "bold",
               color: "#1B1C31",
               mb: 1,
+              textAlign: { xs: "center", md: "left" },
             }}
           >
             Contact
@@ -111,7 +133,14 @@ const Footer = () => {
           {contact.map((item, index) => (
             <Stack direction="row" key={index} spacing={1}>
               {item.icon}
-              <Typography sx={{ fontSize: "16px", mb: 1 }}>
+
+              <Typography
+                sx={{
+                  fontSize: { xs: "8px", md: "16px" },
+                  mb: 1,
+                  textAlign: { xs: "center", md: "left" },
+                }}
+              >
                 {item.text}
               </Typography>
             </Stack>

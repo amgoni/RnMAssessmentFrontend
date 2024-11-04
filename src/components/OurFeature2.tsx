@@ -18,39 +18,57 @@ const OurFeature2 = () => {
     <Container>
       <Stack
         direction="row"
-        sx={{ display: "flex", justifyContent: "space-between" }}
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: { xs: "column", md: "row" },
+        }}
       >
         <Stack
           direction="column"
           sx={{
-            width: "50%",
+            width: { xs: "100%", md: "50%" },
             display: "flex",
             flexDirection: "column",
             justifyContent: "start",
           }}
         >
-          <Typography sx={{ color: "#3734A9", fontSize: "18px", mb: "25px" }}>
+          <Typography
+            sx={{
+              color: "#3734A9",
+              fontSize: "18px",
+              mb: "25px",
+              textAlign: { xs: "center", md: "left" },
+            }}
+          >
             OUR FEATURE
           </Typography>
           <Typography
             sx={{
               color: "#000",
-              fontSize: "50px",
+              fontSize: { xs: "28px", md: "50px" },
               fontWeight: "bolder",
               letterSpacing: "-1px",
               lineHeight: "1",
+              textAlign: { xs: "center", md: "left" },
             }}
           >
             Manage all expenses & incomes from your dashboard
           </Typography>
-          <Typography sx={{ fontSize: "18px", mt: "20px" }}>
+          <Typography
+            sx={{
+              fontSize: { xs: "14px", md: "18px" },
+              mt: "20px",
+              textAlign: { xs: "center", md: "left" },
+            }}
+          >
             Why kept very ever home mrs. Considered sympathize ten uncommonly
             occasional assistance sufficient not. Letter of on become he tended
             active enable to.
           </Typography>
           <Button
             variant="contained"
-            sx={{ alignSelf: "flex-start", mt: "28px" }}
+            sx={{ alignSelf: { xs: "center", md: "flex-start" }, mt: "28px" }}
           >
             Get Started
           </Button>
@@ -58,6 +76,7 @@ const OurFeature2 = () => {
 
         <Box
           sx={{
+            display: { xs: "none", md: "block" },
             width: "40%",
             position: "relative",
             zIndex: 1,

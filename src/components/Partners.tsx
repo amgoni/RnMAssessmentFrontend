@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Container, Stack, Typography } from "@mui/material";
 import monday from "../assets/partners/monday.png";
 import morpheus from "../assets/partners/morpheus.png";
 import openZeppelin from "../assets/partners/openZeppelin.png";
@@ -19,7 +19,7 @@ const partners = [
 
 const Partners = () => {
   return (
-    <Box
+    <Container
       sx={{
         my: 2,
         display: "flex",
@@ -49,7 +49,7 @@ const Partners = () => {
           />
         ))}
       </Stack>
-    </Box>
+    </Container>
   );
 };
 
