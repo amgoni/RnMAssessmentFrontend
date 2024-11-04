@@ -1,0 +1,28 @@
+/* @import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css"; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy/Gilroy-Regular.ttf") format("truetype"),
+    url("/fonts/Gilroy/Gilroy-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("/fonts/Gilroy/Gilroy-Bold.ttf") format("truetype"),
+    url("/fonts/Gilroy/Gilroy-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
