@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.tsx";
 import "@fontsource-variable/manrope";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { AuthContextProvider } from "./store/auth-context.tsx";
 
 const theme = createTheme({
   palette: {
@@ -75,8 +76,10 @@ const theme = createTheme({
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <AuthContextProvider>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </AuthContextProvider>
   </StrictMode>
 );

@@ -7,8 +7,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { validateSignUpForm } from "../utils/validation";
+import AuthContext from "../store/auth-context";
 
-const SignUpForm = () => {
+type SignUpFormProps = {
+  closeModal: () => void;
+};
+
+const SignUpForm = ({ closeModal }: SignUpFormProps) => {
   const [isSignUp, setIsSignUp] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<{
@@ -17,15 +22,18 @@ const SignUpForm = () => {
     password?: string;
   }>({});
 
+  const authCtx = useContext(AuthContext);
+
   const nameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
   const switchAuthModeHandler = () => {
     setIsSignUp((prevState) => !prevState);
+    setErrorMessage({});
   };
 
-  const submitHandler = async (event: React.FormEvent) => {
+  const submitHandler = (event: React.FormEvent) => {
     event.preventDefault();
     setIsLoading(true);
 
@@ -39,42 +47,28 @@ const SignUpForm = () => {
       enteredPassword
     );
 
-    if (Object.keys(errors).length > 0) {
-      setErrorMessage(errors);
+    if (isSignUp && !enteredName) {
+      setErrorMessage({
+        name: "Name is required",
+      });
       setIsLoading(false);
       return;
     }
 
-    // let url;
+    if (!enteredEmail || !enteredPassword) {
+      setErrorMessage({
+        email: !enteredEmail ? "Email is required" : "",
+        password: !enteredPassword ? "Password is required" : "",
+      });
+      setIsLoading(false);
+      return;
+    }
 
-    // if (isSignUp) {
-    //   url = `${process.env.SIGNUP_URL}`;
-    // } else {
-    //   url = `${process.env.LOGIN_URL}`;
-    // }
-
-    // try {
-    //   const response = await fetch(url, {
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //       email: enteredEmail,
-    //       password: enteredPassword,
-    //       returnSecureToken: true,
-    //     }),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   });
-
-    //   if (!response.ok) {
-    //     throw new Error("Something went wrong!");
-    //   }
-
-    //   const data = await response.json();
-    //   console.log(data);
-    // } catch (error) {
-    //   console.error(error.message);
-    // }
+    setTimeout(() => {
+      setIsLoading(false);
+      authCtx.login();
+      closeModal();
+    }, 2000);
   };
 
   return (
@@ -85,7 +79,7 @@ const SignUpForm = () => {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
-        width: 400,
+        width: { xs: "90%", sm: "50%", md: "30%" },
         borderRadius: 4,
         boxShadow: 24,
         p: 4,
@@ -94,7 +88,7 @@ const SignUpForm = () => {
       <Typography
         sx={{ fontWeight: "bold", textAlign: "center", mb: 2, color: "#000" }}
       >
-        Sign up to AR SHAKIR
+        {isSignUp ? "Sign up to AR SHAKIR" : "Login to AR SHAKIR"}
       </Typography>
       <Box component="form" onSubmit={submitHandler}>
         {isSignUp && (
@@ -142,14 +136,10 @@ const SignUpForm = () => {
           color="primary"
           fullWidth
           sx={{ color: "white", mb: 2 }}
+          disabled={isLoading}
         >
           {isLoading ? (
-            <CircularProgress
-              size={24}
-              sx={{
-                color: "white",
-              }}
-            />
+            <CircularProgress size={24} />
           ) : isSignUp ? (
             "Sign Up"
           ) : (

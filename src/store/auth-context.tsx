@@ -1,75 +1,58 @@
-// /* eslint-disable react/prop-types */
-// import React, { useState, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 
-// const AuthContext = React.createContext({
-//   token: "",
-//   userId: "",
-//   isLoggedIn: false,
-//   login: () => {},
-//   logout: () => {},
-// });
+interface AuthContextProviderProps {
+  children: React.ReactNode;
+}
 
-// const retrieveStoredUserId = () => {
-//   const storedUserId = localStorage.getItem("userId");
-//   return {
-//     userId: storedUserId,
-//   };
-// };
+const AuthContext = React.createContext<{
+  token: string | null;
+  isLoggedIn: boolean;
+  login: () => void;
+  logout: () => void;
+}>({
+  token: "",
+  isLoggedIn: false,
+  login: () => {},
+  logout: () => {},
+});
 
-// const retrieveStoredToken = () => {
-//   const storedToken = localStorage.getItem("token");
-//   return {
-//     token: storedToken,
-//   };
-// };
+const retrieveStoredToken = () => {
+  const storedToken = localStorage.getItem("token");
+  return {
+    token: storedToken,
+  };
+};
 
-// export const AuthContextProvider = (props) => {
-//   const tokenData = retrieveStoredToken();
-//   const userIdData = retrieveStoredUserId();
+export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({
+  children,
+}) => {
+  const tokenData = retrieveStoredToken();
+  let initialToken = tokenData.token || null;
 
-//   let initialToken;
-//   let initialUserId;
+  const [token, setToken] = useState<string | null>(initialToken);
 
-//   if (tokenData) {
-//     initialToken = tokenData.token;
-//   }
+  const userIsLoggedIn = !!token;
 
-//   if (userIdData) {
-//     initialUserId = userIdData.userId;
-//   }
+  const loginHandler = () => {
+    setToken("LOGGED IN");
+    localStorage.setItem("token", "LOGGED IN");
+  };
 
-//   const [token, setToken] = useState(initialToken);
-//   const [userId, setUserId] = useState(initialUserId);
+  const logoutHandler = useCallback(() => {
+    setToken(null);
+    localStorage.removeItem("token");
+  }, []);
 
-//   const userIsLoggedIn = !!token;
+  const contextValue = {
+    token: token,
+    isLoggedIn: userIsLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
+  };
 
-//   const logoutHandler = useCallback(() => {
-//     setToken(null);
-//     setUserId(null);
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("userId");
-//   }, []);
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
+};
 
-//   const loginHandler = (token, userId) => {
-//     setToken(token);
-//     setUserId(userId);
-//     localStorage.setItem("userId", userId);
-//     localStorage.setItem("token", token);
-//   };
-
-//   const contextValue = {
-//     token: token,
-//     userId: userId,
-//     isLoggedIn: userIsLoggedIn,
-//     login: loginHandler,
-//     logout: logoutHandler,
-//   };
-
-//   return (
-//     <AuthContext.Provider value={contextValue}>
-//       {props.children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export default AuthContext;
+export default AuthContext;

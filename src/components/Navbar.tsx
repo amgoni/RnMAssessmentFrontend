@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   AppBar,
   Box,
@@ -14,12 +14,15 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import SignUpForm from "./SignUpForm";
+import AuthContext from "../store/auth-context";
 
 const links = ["Product", "Template", "Blog", "Pricing"];
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
+  const authCtx = useContext(AuthContext);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -68,25 +71,26 @@ const Navbar = () => {
                 alignItems: "center",
               }}
             >
-              <Link href="#" underline="none">
-                <Typography
+              {!authCtx.isLoggedIn && (
+                <Button
+                  onClick={handleOpenModal}
                   sx={{
-                    mx: 2,
                     fontSize: "14px",
                     fontWeight: "medium",
                     color: "#000",
                   }}
                 >
                   Sign In
-                </Typography>
-              </Link>
+                </Button>
+              )}
+
               <Button
-                onClick={handleOpenModal}
+                onClick={authCtx.isLoggedIn ? authCtx.logout : handleOpenModal}
                 variant="contained"
                 color="primary"
                 sx={{ borderRadius: 0 }}
               >
-                Start Free
+                {authCtx.isLoggedIn ? "Log Out" : "Start Free"}
               </Button>
             </Box>
 
@@ -127,25 +131,28 @@ const Navbar = () => {
                     </MenuItem>
                   ))}
                   <MenuItem onClick={toggleDrawer(false)}>
-                    <Link href="#" underline="none">
-                      <Typography
+                    {!authCtx.isLoggedIn && (
+                      <Button
+                        onClick={handleOpenModal}
                         sx={{
-                          textAlign: "center",
-                          color: "#000",
+                          fontSize: "14px",
                           fontWeight: "medium",
+                          color: "#000",
                         }}
                       >
                         Sign In
-                      </Typography>
-                    </Link>
+                      </Button>
+                    )}
                   </MenuItem>
                   <Button
-                    onClick={handleOpenModal}
+                    onClick={
+                      authCtx.isLoggedIn ? authCtx.logout : handleOpenModal
+                    }
                     variant="contained"
                     color="primary"
                     sx={{ borderRadius: 0 }}
                   >
-                    Start Free
+                    {authCtx.isLoggedIn ? "Log Out" : "Start Free"}
                   </Button>
                 </Box>
               </Drawer>
@@ -154,7 +161,7 @@ const Navbar = () => {
         </AppBar>
       </Container>
       <Modal open={openModal} onClose={handleCloseModal}>
-        <SignUpForm />
+        <SignUpForm closeModal={handleCloseModal} />
       </Modal>
     </>
   );

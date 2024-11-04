@@ -29,7 +29,7 @@ const OurFeature = () => {
               position: "absolute",
               top: 0,
               left: 0,
-              clipPath: "polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%)", // Clipping bottom-right corner
+              clipPath: "polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%)",
               zIndex: 0,
             }}
           />
