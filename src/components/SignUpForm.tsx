@@ -45,9 +45,36 @@ const SignUpForm = () => {
       return;
     }
 
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    // let url;
+
+    // if (isSignUp) {
+    //   url = `${process.env.SIGNUP_URL}`;
+    // } else {
+    //   url = `${process.env.LOGIN_URL}`;
+    // }
+
+    // try {
+    //   const response = await fetch(url, {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       email: enteredEmail,
+    //       password: enteredPassword,
+    //       returnSecureToken: true,
+    //     }),
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   });
+
+    //   if (!response.ok) {
+    //     throw new Error("Something went wrong!");
+    //   }
+
+    //   const data = await response.json();
+    //   console.log(data);
+    // } catch (error) {
+    //   console.error(error.message);
+    // }
   };
 
   return (
